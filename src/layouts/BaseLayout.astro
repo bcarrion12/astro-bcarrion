@@ -1,0 +1,73 @@
+---
+export interface Props {
+  title: string;
+  active: 'home' | 'tracklist' | 'album' | 'blog';
+}
+const { title, active } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet" />
+  <script>
+    // Set theme/lang before paint to avoid flash
+    (function () {
+      try {
+        document.documentElement.setAttribute('data-theme', localStorage.getItem('bca_theme') || 'dark');
+        document.documentElement.setAttribute('data-lang', localStorage.getItem('bca_lang') || 'es');
+      } catch (e) {}
+    })();
+  </script>
+  <style is:global>
+    @import '../styles/global.css';
+  </style>
+</head>
+<body>
+  <div style="position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;">
+    <canvas class="bg-canvas" id="bg-canvas"></canvas>
+  </div>
+
+  <nav class="site-nav">
+    <a href="/" class="logo">BCARRION</a>
+    <div class="links">
+      <a href="/" class:list={["navlink", { active: active === 'home' }]}>
+        <span class="lang-es">Inicio</span><span class="lang-en">Home</span>
+      </a>
+      <a href="/tracklist" class:list={["navlink", { active: active === 'tracklist' }]}>Tracklist</a>
+      <a href="/album" class:list={["navlink", { active: active === 'album' }]}>
+        <span class="lang-es">Álbum</span><span class="lang-en">Album</span>
+      </a>
+      <a href="/blog" class:list={["navlink", { active: active === 'blog' }]}>Blog</a>
+      <button class="icon-btn" data-theme-toggle title="Theme">☀</button>
+      <div class="lang-switch">
+        <button class="es" data-lang-set="es">ES</button>
+        <button class="en" data-lang-set="en">EN</button>
+      </div>
+    </div>
+  </nav>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div>© 2026 BCARRION</div>
+    <div class="links">
+      <a href="/tracklist">Tracklist</a>
+      <a href="/album"><span class="lang-es">Álbum</span><span class="lang-en">Album</span></a>
+      <a href="/blog">Blog</a>
+    </div>
+  </footer>
+
+  <script>
+    import { runParticleField, initTheme, initLang, wireGlobalControls } from '../scripts/site.js';
+    initTheme();
+    initLang();
+    wireGlobalControls();
+    const canvas = document.getElementById('bg-canvas');
+    if (canvas) runParticleField(canvas, () => document.documentElement.getAttribute('data-theme'));
+  </script>
+</body>
+</html>

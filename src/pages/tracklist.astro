@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const tracks = [
+  { num: '01', title: 'Nébula', duration: '3:24' },
+  { num: '02', title: 'Gravedad', duration: '4:02', single: true },
+  { num: '03', title: 'Llamarada Solar', duration: '3:47' },
+  { num: '04', title: 'Andromeda', duration: '4:31', single: true },
+  { num: '05', title: 'Horizonte de Eventos', duration: '3:15' },
+  { num: '06', title: 'Polvo de Estrellas', duration: '3:58' },
+  { num: '07', title: 'Órbita', duration: '3:40' },
+  { num: '08', title: 'Supernova', duration: '4:14' }
+];
+---
+<BaseLayout title="Tracklist — BCARRION" active="tracklist">
+  <section style="position:relative; z-index:1; padding:180px 6vw 40px; text-align:center;">
+    <p style="letter-spacing:.3em; text-transform:uppercase; color:var(--muted); font-size:11px; margin:0 0 20px;">ANDROMEDA</p>
+    <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:400; font-size:clamp(36px,6vw,64px); margin:0; color:var(--fg);">Tracklist</h1>
+    <p style="color:var(--muted); max-width:440px; margin:20px auto 0; font-size:14px; line-height:1.7;">
+      <span class="lang-es">Ocho canciones, un viaje entre galaxias. Disponible el 15 de agosto.</span>
+      <span class="lang-en">Eight songs, one journey between galaxies. Out August 15.</span>
+    </p>
+  </section>
+
+  <section style="position:relative; z-index:1; max-width:640px; margin:0 auto; padding:60px 6vw 140px;">
+    {tracks.map((track) => (
+      <div style="display:flex; align-items:baseline; gap:24px; padding:22px 4px; border-bottom:1px solid var(--border);">
+        <div style="font-family:'Space Grotesk',sans-serif; font-size:14px; color:var(--faint); width:20px;">{track.num}</div>
+        <div style="flex:1; text-align:left;">
+          <div style="font-weight:400; font-size:16px; color:var(--fg);">{track.title}</div>
+          {track.single && (
+            <div style="font-size:11px; color:var(--accent); margin-top:5px; letter-spacing:.08em;">
+              <span class="lang-es">SENCILLO</span><span class="lang-en">SINGLE</span>
+            </div>
+          )}
+        </div>
+        <div style="font-family:'Space Grotesk',sans-serif; color:var(--faint); font-size:13px;">{track.duration}</div>
+      </div>
+    ))}
+
+    <div style="text-align:center; margin-top:72px;">
+      <a href="/#preorder" class="cta-solid">
+        <span class="lang-es">Reservar ahora</span><span class="lang-en">Pre-order now</span>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
