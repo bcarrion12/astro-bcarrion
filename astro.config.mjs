@@ -1,8 +1,10 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://bcarrion.com',
-  integrations: [tailwind({ applyBaseStyles: false }), sitemap()]
+  integrations: [sitemap()],
+  vite: { plugins: [tailwindcss()] },
+  legacy: { collectionsBackwardsCompat: true }
 });

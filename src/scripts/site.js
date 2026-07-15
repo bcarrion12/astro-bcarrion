@@ -99,13 +99,10 @@ export function initLang() {
 export function wireGlobalControls() {
   const themeBtn = document.querySelector('[data-theme-toggle]');
   if (themeBtn) {
-    const setGlyph = () => { themeBtn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀' : '☾'; };
-    setGlyph();
     themeBtn.addEventListener('click', () => {
       const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem('bca_theme', next);
-      setGlyph();
     });
   }
   const langBtns = document.querySelectorAll('[data-lang-set]');

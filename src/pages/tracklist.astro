@@ -18,9 +18,15 @@ const releaseEn = album
   active="tracklist"
   description={album ? `Tracklist completo de ${album.data.title}: ${album.data.descriptionEs}` : 'Tracklist.'}
 >
-  <section class="relative z-10 pt-[180px] px-[6vw] pb-10 text-center">
-    <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-5">{album?.data.title.toUpperCase()}</p>
-    <h1 class="font-display font-normal text-[clamp(36px,6vw,64px)] m-0 text-fg">Tracklist</h1>
+  <section class="relative z-10 pt-[180px] px-[6vw] pb-10 text-center overflow-hidden">
+    <div class="marquee absolute top-[70px] left-0 pointer-events-none select-none" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Tracklist · Andromeda · Tracklist · Andromeda · </span>
+        <span>Tracklist · Andromeda · Tracklist · Andromeda · </span>
+      </div>
+    </div>
+    <p class="eyebrow mb-5">{album?.data.title.toUpperCase()}</p>
+    <h1 class="font-display font-bold text-[clamp(36px,6vw,64px)] m-0 text-fg">Tracklist</h1>
     <p class="text-muted max-w-[440px] mx-auto mt-5 text-sm leading-[1.7]">
       <span class="lang-es">{album?.data.descriptionEs} Disponible el {releaseEs}.</span>
       <span class="lang-en">{album?.data.descriptionEn} Out {releaseEn}.</span>
@@ -34,8 +40,8 @@ const releaseEn = album
         <div class="flex-1 text-left">
           <div class="font-normal text-base text-fg transition-transform duration-300 group-hover:translate-x-1">{track.title}</div>
           {track.single && (
-            <div class="text-[11px] text-accent mt-[5px] tracking-[.08em]">
-              <span class="lang-es">SENCILLO</span><span class="lang-en">SINGLE</span>
+            <div class="mt-[6px]">
+              <span class="tag-accent"><span class="lang-es">SENCILLO</span><span class="lang-en">SINGLE</span></span>
             </div>
           )}
         </div>
