@@ -45,7 +45,6 @@ a:hover { @apply text-accent-hover; }
   background-image: repeating-linear-gradient(45deg, var(--borderSoft), var(--borderSoft) 10px, transparent 10px, transparent 20px);
 }
 
-nav.site-nav .links a.navlink.active { @apply text-fg; }
 .lang-switch button.es,
 .lang-switch button.en { @apply text-muted; }
 [data-lang="es"] .lang-switch button.es,

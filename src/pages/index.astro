@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<BaseLayout title="BCARRION — Andromeda" active="home">
+<BaseLayout title="BCARRION — Andromeda" active="home" description="Andromeda, el nuevo álbum de bcarrion. Un viaje sonoro entre galaxias — disponible el 15 de agosto de 2026.">
   <section class="relative z-10 min-h-screen flex flex-col items-center justify-center py-[140px] px-[6vw] pb-20 text-center">
     <div class="absolute top-[100px] left-9 w-[22px] h-[22px] border-t border-l border-border"></div>
     <div class="absolute top-[100px] right-9 w-[22px] h-[22px] border-t border-r border-border"></div>
@@ -64,9 +64,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </h2>
     <div class="flex flex-col max-w-[420px] mx-auto">
       {['Spotify', 'Apple Music', 'YouTube Music'].map((name) => (
-        <a href="#" class="flex items-center justify-between py-[22px] px-1 border-b border-border text-fg text-[15px]">
-          <span>{name}</span>
-          <span class="text-faint text-[13px]">&#8594;</span>
+        <a href="#" class="group flex items-center justify-between py-[22px] px-1 border-b border-border text-fg text-[15px] transition-colors duration-300 hover:border-fg">
+          <span class="transition-transform duration-300 group-hover:translate-x-1">{name}</span>
+          <span class="text-faint text-[13px] transition-transform duration-300 group-hover:translate-x-1">&#8594;</span>
         </a>
       ))}
     </div>
@@ -78,13 +78,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </p>
     <div class="flex gap-8 justify-center flex-wrap">
       {['Instagram', 'TikTok', 'YouTube', 'SoundCloud'].map((name) => (
-        <a href="#" class="text-muted text-[13px] tracking-[.05em]">{name}</a>
+        <a href="#" class="text-muted text-[13px] tracking-[.05em] transition-colors duration-300 hover:text-fg">{name}</a>
       ))}
     </div>
   </section>
 
   <script>
     import { startCountdown } from '../scripts/site.js';
-    startCountdown('2026-08-15T00:00:00', ['cd-d', 'cd-h', 'cd-m', 'cd-s']);
+    let countdownId;
+    document.addEventListener('astro:page-load', () => {
+      const el = document.getElementById('cd-d');
+      if (!el) return;
+      clearInterval(countdownId);
+      countdownId = startCountdown('2026-08-15T00:00:00', ['cd-d', 'cd-h', 'cd-m', 'cd-s']);
+    });
   </script>
 </BaseLayout>

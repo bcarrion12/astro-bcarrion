@@ -1,11 +1,29 @@
 ---
+import { ViewTransitions } from 'astro:transitions';
 import '../styles/global.css';
 
 export interface Props {
   title: string;
-  active: 'home' | 'tracklist' | 'album' | 'blog';
+  active?: 'home' | 'tracklist' | 'album' | 'discografia' | 'blog';
+  description?: string;
 }
-const { title, active } = Astro.props;
+const {
+  title,
+  active,
+  description = 'Andromeda, el nuevo álbum de bcarrion. Un viaje sonoro entre galaxias.'
+} = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL('/og-image.svg', Astro.site);
+
+const navLinkClass =
+  "navlink relative text-muted text-[13px] tracking-[.03em] transition-colors duration-300 hover:text-fg after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-px after:w-0 after:bg-fg after:transition-all after:duration-300";
+const navLinks = [
+  { href: '/', key: 'home', label: { es: 'Inicio', en: 'Home' } },
+  { href: '/tracklist', key: 'tracklist', label: { es: 'Tracklist', en: 'Tracklist' } },
+  { href: '/album', key: 'album', label: { es: 'Álbum', en: 'Album' } },
+  { href: '/discografia', key: 'discografia', label: { es: 'Discografía', en: 'Discography' } },
+  { href: '/blog', key: 'blog', label: { es: 'Blog', en: 'Blog' } }
+];
 ---
 <!DOCTYPE html>
 <html lang="es">
@@ -13,8 +31,24 @@ const { title, active } = Astro.props;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL} />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/rss+xml" title="BCARRION — Andromeda" href="/rss.xml" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Manrope:wght@300;400;500&display=swap" rel="stylesheet" />
+  <ViewTransitions />
   <script>
     // Set theme/lang before paint to avoid flash
     (function () {
@@ -26,25 +60,44 @@ const { title, active } = Astro.props;
   </script>
 </head>
 <body>
-  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden" transition:persist>
     <canvas class="bg-canvas" id="bg-canvas"></canvas>
   </div>
 
-  <nav class="site-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between py-[26px] px-[6vw] bg-nav-bg backdrop-blur-[10px] border-b border-border-soft">
-    <a href="/" class="logo font-display font-medium tracking-[.1em] text-sm text-fg">BCARRION</a>
-    <div class="links flex items-center gap-8">
-      <a href="/" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'home' }]}>
-        <span class="lang-es">Inicio</span><span class="lang-en">Home</span>
-      </a>
-      <a href="/tracklist" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'tracklist' }]}>Tracklist</a>
-      <a href="/album" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'album' }]}>
-        <span class="lang-es">Álbum</span><span class="lang-en">Album</span>
-      </a>
-      <a href="/blog" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'blog' }]}>Blog</a>
-      <button class="icon-btn bg-transparent border border-border text-fg rounded-sm w-7 h-7 text-[13px] cursor-pointer leading-none" data-theme-toggle title="Theme">☀</button>
-      <div class="lang-switch flex border border-border rounded-sm overflow-hidden">
-        <button class="es bg-transparent border-0 py-[5px] px-[10px] text-[11px] tracking-[.05em] cursor-pointer" data-lang-set="es">ES</button>
-        <button class="en bg-transparent border-0 py-[5px] px-[10px] text-[11px] tracking-[.05em] cursor-pointer" data-lang-set="en">EN</button>
+  <nav class="site-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between py-[18px] md:py-[26px] px-[6vw] bg-nav-bg backdrop-blur-[10px] border-b border-border-soft">
+    <a href="/" class="logo font-display font-medium tracking-[.1em] text-sm text-fg shrink-0">BCARRION</a>
+
+    <button
+      class="menu-toggle md:hidden bg-transparent border border-border text-fg rounded-sm w-8 h-8 text-sm cursor-pointer leading-none shrink-0"
+      data-menu-toggle
+      aria-expanded="false"
+      aria-controls="nav-links"
+      aria-label="Abrir menú"
+    >☰</button>
+
+    <div
+      id="nav-links"
+      class="links hidden flex-col items-start gap-6 absolute top-full left-0 right-0 bg-nav-bg backdrop-blur-[10px] border-t border-border-soft p-6 [&.mobile-open]:flex md:static md:flex md:flex-row md:items-center md:gap-8 md:border-0 md:p-0 md:bg-transparent md:backdrop-blur-none"
+    >
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          aria-current={active === link.key ? 'page' : undefined}
+          class:list={[navLinkClass, { 'active text-fg after:w-full': active === link.key }]}
+        >
+          {link.label.es === link.label.en ? link.label.es : (
+            <>
+              <span class="lang-es">{link.label.es}</span><span class="lang-en">{link.label.en}</span>
+            </>
+          )}
+        </a>
+      ))}
+      <div class="flex items-center gap-4 md:gap-8">
+        <button class="icon-btn bg-transparent border border-border text-fg rounded-sm w-7 h-7 text-[13px] cursor-pointer leading-none" data-theme-toggle title="Cambiar tema" aria-label="Cambiar entre tema claro y oscuro">☀</button>
+        <div class="lang-switch flex border border-border rounded-sm overflow-hidden">
+          <button class="es bg-transparent border-0 py-[5px] px-[10px] text-[11px] tracking-[.05em] cursor-pointer" data-lang-set="es" aria-label="Cambiar a español" aria-pressed="true">ES</button>
+          <button class="en bg-transparent border-0 py-[5px] px-[10px] text-[11px] tracking-[.05em] cursor-pointer" data-lang-set="en" aria-label="Switch to English" aria-pressed="false">EN</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -56,17 +109,24 @@ const { title, active } = Astro.props;
     <div class="links flex gap-6">
       <a href="/tracklist" class="text-faint text-xs">Tracklist</a>
       <a href="/album" class="text-faint text-xs"><span class="lang-es">Álbum</span><span class="lang-en">Album</span></a>
+      <a href="/discografia" class="text-faint text-xs"><span class="lang-es">Discografía</span><span class="lang-en">Discography</span></a>
       <a href="/blog" class="text-faint text-xs">Blog</a>
     </div>
   </footer>
 
   <script>
     import { runParticleField, initTheme, initLang, wireGlobalControls } from '../scripts/site.js';
-    initTheme();
-    initLang();
-    wireGlobalControls();
-    const canvas = document.getElementById('bg-canvas');
-    if (canvas) runParticleField(canvas, () => document.documentElement.getAttribute('data-theme'));
+
+    document.addEventListener('astro:page-load', () => {
+      initTheme();
+      initLang();
+      wireGlobalControls();
+      const canvas = document.getElementById('bg-canvas');
+      if (canvas && !canvas.dataset.inited) {
+        canvas.dataset.inited = 'true';
+        runParticleField(canvas, () => document.documentElement.getAttribute('data-theme'));
+      }
+    });
   </script>
 </body>
 </html>

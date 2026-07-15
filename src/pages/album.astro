@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 const gallery = [1, 2, 3, 4, 5, 6];
 ---
-<BaseLayout title="Álbum — BCARRION" active="album">
+<BaseLayout title="Álbum — BCARRION" active="album" description="Sobre bcarrion y el álbum Andromeda: bio, video destacado y galería.">
   <section class="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-20 items-center max-w-[1080px] mx-auto pt-[180px] px-[6vw] pb-[120px]">
     <div class="placeholder-tile w-full aspect-square overflow-hidden border border-border flex items-center justify-center">
       <span class="font-mono text-xs text-faint">foto del artista</span>
@@ -36,7 +36,7 @@ const gallery = [1, 2, 3, 4, 5, 6];
     </p>
     <div class="grid gap-0.5" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
       {gallery.map((n) => (
-        <div class="placeholder-tile aspect-square overflow-hidden flex items-center justify-center">
+        <div class="placeholder-tile aspect-square overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-[1.03] cursor-pointer">
           <span class="font-mono text-[11px] text-faint">foto {n}</span>
         </div>
       ))}

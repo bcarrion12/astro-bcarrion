@@ -1,33 +1,38 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const tracks = [
-  { num: '01', title: 'Nébula', duration: '3:24' },
-  { num: '02', title: 'Gravedad', duration: '4:02', single: true },
-  { num: '03', title: 'Llamarada Solar', duration: '3:47' },
-  { num: '04', title: 'Andromeda', duration: '4:31', single: true },
-  { num: '05', title: 'Horizonte de Eventos', duration: '3:15' },
-  { num: '06', title: 'Polvo de Estrellas', duration: '3:58' },
-  { num: '07', title: 'Órbita', duration: '3:40' },
-  { num: '08', title: 'Supernova', duration: '4:14' }
-];
+const albums = await getCollection('albums', ({ data }) => data.published && data.current);
+const album = albums[0];
+const tracks = album?.data.tracks ?? [];
+
+const releaseEs = album
+  ? new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'long' }).format(album.data.releaseDate)
+  : '';
+const releaseEn = album
+  ? new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric' }).format(album.data.releaseDate)
+  : '';
 ---
-<BaseLayout title="Tracklist — BCARRION" active="tracklist">
+<BaseLayout
+  title={`Tracklist — BCARRION`}
+  active="tracklist"
+  description={album ? `Tracklist completo de ${album.data.title}: ${album.data.descriptionEs}` : 'Tracklist.'}
+>
   <section class="relative z-10 pt-[180px] px-[6vw] pb-10 text-center">
-    <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-5">ANDROMEDA</p>
+    <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-5">{album?.data.title.toUpperCase()}</p>
     <h1 class="font-display font-normal text-[clamp(36px,6vw,64px)] m-0 text-fg">Tracklist</h1>
     <p class="text-muted max-w-[440px] mx-auto mt-5 text-sm leading-[1.7]">
-      <span class="lang-es">Ocho canciones, un viaje entre galaxias. Disponible el 15 de agosto.</span>
-      <span class="lang-en">Eight songs, one journey between galaxies. Out August 15.</span>
+      <span class="lang-es">{album?.data.descriptionEs} Disponible el {releaseEs}.</span>
+      <span class="lang-en">{album?.data.descriptionEn} Out {releaseEn}.</span>
     </p>
   </section>
 
   <section class="relative z-10 max-w-[640px] mx-auto py-[60px] px-[6vw] pb-[140px]">
     {tracks.map((track) => (
-      <div class="flex items-baseline gap-6 py-[22px] px-1 border-b border-border">
-        <div class="font-display text-sm text-faint w-5">{track.num}</div>
+      <div class="group flex items-baseline gap-6 py-[22px] px-1 border-b border-border transition-colors duration-300 hover:border-fg">
+        <div class="font-display text-sm text-faint w-5 transition-colors duration-300 group-hover:text-accent">{track.num}</div>
         <div class="flex-1 text-left">
-          <div class="font-normal text-base text-fg">{track.title}</div>
+          <div class="font-normal text-base text-fg transition-transform duration-300 group-hover:translate-x-1">{track.title}</div>
           {track.single && (
             <div class="text-[11px] text-accent mt-[5px] tracking-[.08em]">
               <span class="lang-es">SENCILLO</span><span class="lang-en">SINGLE</span>

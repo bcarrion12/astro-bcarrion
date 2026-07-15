@@ -1,20 +1,12 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
-const posts = [
-  { es: { date: '10.07.2026', title: 'El proceso detrás de Andromeda', excerpt: 'Cómo nació el concepto del álbum y las primeras sesiones de estudio.' },
-    en: { date: '07.10.2026', title: 'The process behind Andromeda', excerpt: 'How the album concept came together, from the first studio sessions.' } },
-  { es: { date: '28.06.2026', title: 'Gravedad: el primer sencillo', excerpt: 'Notas sobre la producción del corte que abrió el proyecto.' },
-    en: { date: '06.28.2026', title: 'Gravedad: the first single', excerpt: 'Notes on producing the track that opened the project.' } },
-  { es: { date: '12.06.2026', title: 'Portada y dirección de arte', excerpt: 'El concepto visual detrás de la estética del álbum.' },
-    en: { date: '06.12.2026', title: 'Cover art and direction', excerpt: "The visual concept behind the album's look." } },
-  { es: { date: '30.05.2026', title: 'Fechas y formatos de preorder', excerpt: 'Todo lo que necesitás saber sobre el lanzamiento del 15 de agosto.' },
-    en: { date: '05.30.2026', title: 'Pre-order dates and formats', excerpt: 'Everything you need to know about the August 15 release.' } },
-  { es: { date: '14.05.2026', title: 'Primeras impresiones en vivo', excerpt: 'Adelantos tocados en sesiones acústicas antes del lanzamiento.' },
-    en: { date: '05.14.2026', title: 'First live impressions', excerpt: 'Early previews played at acoustic sessions ahead of release.' } }
-];
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
-<BaseLayout title="Blog — BCARRION" active="blog">
+<BaseLayout title="Blog — BCARRION" active="blog" description="Notas y actualizaciones sobre Andromeda y bcarrion.">
   <section class="relative z-10 pt-[180px] px-[6vw] pb-[60px] text-center">
     <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-5">ANDROMEDA</p>
     <h1 class="font-display font-normal text-[clamp(36px,6vw,64px)] m-0 text-fg">Blog</h1>
@@ -26,16 +18,16 @@ const posts = [
 
   <section class="relative z-10 max-w-[760px] mx-auto pt-10 px-[6vw] pb-[150px]">
     {posts.map((post) => (
-      <div class="grid grid-cols-[110px_1fr] gap-7 py-[30px] px-1 border-b border-border text-left">
+      <div class="group grid grid-cols-[110px_1fr] gap-7 py-[30px] px-1 border-b border-border text-left transition-colors duration-300 hover:border-fg">
         <div class="font-mono text-xs text-faint tracking-[.03em] pt-[3px]">
-          <span class="lang-es">{post.es.date}</span><span class="lang-en">{post.en.date}</span>
+          <span class="lang-es">{post.data.es.date}</span><span class="lang-en">{post.data.en.date}</span>
         </div>
         <div>
-          <div class="font-display text-[19px] text-fg mb-2">
-            <span class="lang-es">{post.es.title}</span><span class="lang-en">{post.en.title}</span>
+          <div class="font-display text-[19px] text-fg mb-2 transition-transform duration-300 group-hover:translate-x-1">
+            <span class="lang-es">{post.data.es.title}</span><span class="lang-en">{post.data.en.title}</span>
           </div>
           <div class="text-muted text-sm leading-[1.7] max-w-[520px]">
-            <span class="lang-es">{post.es.excerpt}</span><span class="lang-en">{post.en.excerpt}</span>
+            <span class="lang-es">{post.data.es.excerpt}</span><span class="lang-en">{post.data.en.excerpt}</span>
           </div>
         </div>
       </div>

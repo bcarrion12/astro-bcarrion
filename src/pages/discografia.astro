@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const albums = (await getCollection('albums', ({ data }) => data.published)).sort(
+  (a, b) => b.data.releaseDate.valueOf() - a.data.releaseDate.valueOf()
+);
+---
+<BaseLayout
+  title="Discografía — BCARRION"
+  active="discografia"
+  description="Todos los álbumes de bcarrion, de Andromeda hacia atrás."
+>
+  <section class="relative z-10 pt-[180px] px-[6vw] pb-10 text-center">
+    <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-5">BCARRION</p>
+    <h1 class="font-display font-normal text-[clamp(36px,6vw,64px)] m-0 text-fg">
+      <span class="lang-es">Discografía</span><span class="lang-en">Discography</span>
+    </h1>
+    <p class="text-muted max-w-[440px] mx-auto mt-5 text-sm leading-[1.7]">
+      <span class="lang-es">Todos los álbumes, del más reciente al más antiguo.</span>
+      <span class="lang-en">Every album, newest to oldest.</span>
+    </p>
+  </section>
+
+  <section class="relative z-10 max-w-[640px] mx-auto py-[60px] px-[6vw] pb-[140px]">
+    {albums.length === 0 && (
+      <p class="text-center text-muted text-sm">
+        <span class="lang-es">Todavía no hay álbumes publicados.</span>
+        <span class="lang-en">No albums published yet.</span>
+      </p>
+    )}
+    {albums.map((album) => (
+      <a
+        href={`/discografia/${album.id}`}
+        class="group flex items-center justify-between gap-6 py-6 px-1 border-b border-border transition-colors duration-300 hover:border-fg"
+      >
+        <div class="text-left">
+          <div class="font-display text-xl text-fg transition-transform duration-300 group-hover:translate-x-1">
+            {album.data.title}
+            {album.data.current && (
+              <span class="ml-3 align-middle text-[10px] text-accent tracking-[.08em]">
+                <span class="lang-es">ACTUAL</span><span class="lang-en">CURRENT</span>
+              </span>
+            )}
+          </div>
+          <div class="text-muted text-sm mt-1">
+            <span class="lang-es">{album.data.descriptionEs}</span><span class="lang-en">{album.data.descriptionEn}</span>
+          </div>
+        </div>
+        <div class="font-display text-faint text-[13px] shrink-0">
+          {new Intl.DateTimeFormat('es-AR', { year: 'numeric' }).format(album.data.releaseDate)}
+        </div>
+      </a>
+    ))}
+  </section>
+</BaseLayout>

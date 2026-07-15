@@ -108,13 +108,36 @@ export function wireGlobalControls() {
       setGlyph();
     });
   }
-  document.querySelectorAll('[data-lang-set]').forEach(btn => {
+  const langBtns = document.querySelectorAll('[data-lang-set]');
+  const syncLangPressed = () => {
+    const current = document.documentElement.getAttribute('data-lang');
+    langBtns.forEach(b => b.setAttribute('aria-pressed', String(b.getAttribute('data-lang-set') === current)));
+  };
+  syncLangPressed();
+  langBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const lang = btn.getAttribute('data-lang-set');
       document.documentElement.setAttribute('data-lang', lang);
       localStorage.setItem('bca_lang', lang);
+      syncLangPressed();
     });
   });
+  const menuToggle = document.querySelector('[data-menu-toggle]');
+  const navLinks = document.getElementById('nav-links');
+  if (menuToggle && navLinks) {
+    const closeMenu = () => {
+      navLinks.classList.remove('mobile-open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+    };
+    menuToggle.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('mobile-open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuToggle.textContent = isOpen ? '✕' : '☰';
+    });
+    navLinks.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  }
+
   document.querySelectorAll('.cta-solid').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const rect = btn.getBoundingClientRect();
