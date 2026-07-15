@@ -7,13 +7,7 @@ const posts = (await getCollection('blog')).sort(
 );
 ---
 <BaseLayout title="Blog — BCARRION" active="blog" description="Notas y actualizaciones sobre Andromeda y bcarrion.">
-  <section class="relative z-10 pt-[180px] px-[6vw] pb-[60px] text-center overflow-hidden">
-    <div class="marquee absolute top-[70px] left-0 pointer-events-none select-none" aria-hidden="true">
-      <div class="marquee-track">
-        <span>Blog · Andromeda · Blog · Andromeda · </span>
-        <span>Blog · Andromeda · Blog · Andromeda · </span>
-      </div>
-    </div>
+  <section class="relative z-10 pt-[180px] px-[6vw] pb-[60px] text-center">
     <p class="eyebrow mb-5">ANDROMEDA</p>
     <h1 class="font-display font-bold text-[clamp(36px,6vw,64px)] m-0 text-fg">Blog</h1>
     <p class="text-muted max-w-[440px] mx-auto mt-5 text-sm leading-[1.7]">

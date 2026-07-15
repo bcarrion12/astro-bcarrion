@@ -152,40 +152,6 @@ a:hover { @apply text-accent-hover; }
   background: color-mix(in oklch, var(--accent) 12%, transparent);
 }
 
-.marquee {
-  overflow: hidden;
-  white-space: nowrap;
-  width: 100%;
-  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-}
-.marquee-track {
-  display: inline-flex;
-  width: max-content;
-  animation: marquee-scroll 26s linear infinite;
-}
-.marquee-track span {
-  display: inline-block;
-  flex-shrink: 0;
-  padding: 0 .5em;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(48px, 9vw, 108px);
-  line-height: 1;
-  letter-spacing: -.02em;
-  text-transform: uppercase;
-  color: transparent;
-  -webkit-text-stroke: 1px var(--border);
-  text-stroke: 1px var(--border);
-}
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track { animation: none; }
-}
-
 .logo-dot {
   display: inline-block;
   width: 7px;
