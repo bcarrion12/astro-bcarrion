@@ -1,4 +1,5 @@
 ---
+title: "Gravedad: el primer sencillo"
 pubDate: 2026-06-28
 es:
   date: "28.06.2026"

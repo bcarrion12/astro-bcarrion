@@ -1,4 +1,5 @@
 ---
+title: "Fechas y formatos de preorder"
 pubDate: 2026-05-30
 es:
   date: "30.05.2026"

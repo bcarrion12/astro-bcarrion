@@ -1,4 +1,5 @@
 ---
+title: "Primeras impresiones en vivo"
 pubDate: 2026-05-14
 es:
   date: "14.05.2026"

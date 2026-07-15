@@ -1,0 +1,80 @@
+backend:
+  name: github
+  repo: TU_USUARIO/TU_REPO # reemplazar por el repo real en GitHub (usuario/repo)
+  branch: main
+  base_url: https://api.netlify.com # proxy de OAuth de Netlify; funciona aunque el sitio no esté hosteado ahí
+
+# Permite probar el panel en local con `npx decap-server` corriendo en paralelo
+# a `npm run dev`, sin necesidad de configurar el OAuth de GitHub todavía.
+local_backend: true
+
+publish_mode: simple
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "albums"
+    label: "Álbumes"
+    label_singular: "Álbum"
+    folder: "src/content/albums"
+    create: true
+    delete: true
+    extension: "json"
+    format: "json"
+    identifier_field: "title"
+    slug: "{{title}}"
+    summary: "{{title}} — {{published}}"
+    fields:
+      - { label: "Título", name: "title", widget: "string" }
+      - { label: "Fecha de lanzamiento", name: "releaseDate", widget: "date", format: "YYYY-MM-DD" }
+      - label: "Publicado"
+        name: "published"
+        widget: "boolean"
+        default: true
+        hint: "Si está destildado, no aparece en la web (ni en discografía ni en el hero)."
+      - label: "Álbum actual (hero de la home)"
+        name: "current"
+        widget: "boolean"
+        default: false
+        hint: "Marcá esta opción solo en el álbum que querés mostrar como lanzamiento vigente."
+      - { label: "Descripción breve (ES)", name: "descriptionEs", widget: "text" }
+      - { label: "Descripción breve (EN)", name: "descriptionEn", widget: "text" }
+      - label: "Tracklist"
+        name: "tracks"
+        widget: "list"
+        summary: "{{fields.num}} — {{fields.title}}"
+        fields:
+          - { label: "N°", name: "num", widget: "string", default: "01" }
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Duración", name: "duration", widget: "string", default: "3:30" }
+          - { label: "Es sencillo", name: "single", widget: "boolean", default: false }
+
+  - name: "blog"
+    label: "Blog"
+    label_singular: "Post"
+    folder: "src/content/blog"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    identifier_field: "title"
+    slug: "{{title}}"
+    summary: "{{es.title}} — {{es.date}}"
+    fields:
+      - { label: "Título (para el nombre del archivo)", name: "title", widget: "string" }
+      - { label: "Fecha de publicación (orden)", name: "pubDate", widget: "date", format: "YYYY-MM-DD" }
+      - label: "Español"
+        name: "es"
+        widget: "object"
+        fields:
+          - { label: "Fecha mostrada", name: "date", widget: "string" }
+          - { label: "Título", name: "title", widget: "string" }
+          - { label: "Resumen", name: "excerpt", widget: "text" }
+      - label: "English"
+        name: "en"
+        widget: "object"
+        fields:
+          - { label: "Displayed date", name: "date", widget: "string" }
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Excerpt", name: "excerpt", widget: "text" }
+      - { label: "Contenido", name: "body", widget: "markdown", default: "Contenido completo próximamente." }

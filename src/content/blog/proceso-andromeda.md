@@ -1,4 +1,5 @@
 ---
+title: "El proceso detrás de Andromeda"
 pubDate: 2026-07-10
 es:
   date: "10.07.2026"

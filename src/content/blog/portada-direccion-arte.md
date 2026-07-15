@@ -1,4 +1,5 @@
 ---
+title: "Portada y dirección de arte"
 pubDate: 2026-06-12
 es:
   date: "12.06.2026"

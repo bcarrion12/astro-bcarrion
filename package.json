@@ -14,8 +14,6 @@
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
-    "@keystatic/astro": "^5.2.0",
-    "@keystatic/core": "^0.5.51",
     "tailwindcss": "^3.4.19"
   }
 }
