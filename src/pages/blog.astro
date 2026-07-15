@@ -15,26 +15,26 @@ const posts = [
 ];
 ---
 <BaseLayout title="Blog — BCARRION" active="blog">
-  <section style="position:relative; z-index:1; padding:180px 6vw 60px; text-align:center;">
-    <p style="letter-spacing:.3em; text-transform:uppercase; color:var(--muted); font-size:11px; margin:0 0 20px;">ANDROMEDA</p>
-    <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:400; font-size:clamp(36px,6vw,64px); margin:0; color:var(--fg);">Blog</h1>
-    <p style="color:var(--muted); max-width:440px; margin:20px auto 0; font-size:14px; line-height:1.7;">
+  <section class="relative z-10 pt-[180px] px-[6vw] pb-[60px] text-center">
+    <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-5">ANDROMEDA</p>
+    <h1 class="font-display font-normal text-[clamp(36px,6vw,64px)] m-0 text-fg">Blog</h1>
+    <p class="text-muted max-w-[440px] mx-auto mt-5 text-sm leading-[1.7]">
       <span class="lang-es">Notas y actualizaciones sobre Andromeda y bcarrion.</span>
       <span class="lang-en">Notes and updates on Andromeda and bcarrion.</span>
     </p>
   </section>
 
-  <section style="position:relative; z-index:1; max-width:760px; margin:0 auto; padding:40px 6vw 150px;">
+  <section class="relative z-10 max-w-[760px] mx-auto pt-10 px-[6vw] pb-[150px]">
     {posts.map((post) => (
-      <div style="display:grid; grid-template-columns:110px 1fr; gap:28px; padding:30px 4px; border-bottom:1px solid var(--border); text-align:left;">
-        <div style="font-family:monospace; font-size:12px; color:var(--faint); letter-spacing:.03em; padding-top:3px;">
+      <div class="grid grid-cols-[110px_1fr] gap-7 py-[30px] px-1 border-b border-border text-left">
+        <div class="font-mono text-xs text-faint tracking-[.03em] pt-[3px]">
           <span class="lang-es">{post.es.date}</span><span class="lang-en">{post.en.date}</span>
         </div>
         <div>
-          <div style="font-family:'Space Grotesk',sans-serif; font-size:19px; color:var(--fg); margin-bottom:8px;">
+          <div class="font-display text-[19px] text-fg mb-2">
             <span class="lang-es">{post.es.title}</span><span class="lang-en">{post.en.title}</span>
           </div>
-          <div style="color:var(--muted); font-size:14px; line-height:1.7; max-width:520px;">
+          <div class="text-muted text-sm leading-[1.7] max-w-[520px]">
             <span class="lang-es">{post.es.excerpt}</span><span class="lang-en">{post.en.excerpt}</span>
           </div>
         </div>

@@ -1,4 +1,6 @@
 ---
+import '../styles/global.css';
+
 export interface Props {
   title: string;
   active: 'home' | 'tracklist' | 'album' | 'blog';
@@ -22,42 +24,39 @@ const { title, active } = Astro.props;
       } catch (e) {}
     })();
   </script>
-  <style is:global>
-    @import '../styles/global.css';
-  </style>
 </head>
 <body>
-  <div style="position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden;">
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <canvas class="bg-canvas" id="bg-canvas"></canvas>
   </div>
 
-  <nav class="site-nav">
-    <a href="/" class="logo">BCARRION</a>
-    <div class="links">
-      <a href="/" class:list={["navlink", { active: active === 'home' }]}>
+  <nav class="site-nav fixed top-0 left-0 right-0 z-50 flex items-center justify-between py-[26px] px-[6vw] bg-nav-bg backdrop-blur-[10px] border-b border-border-soft">
+    <a href="/" class="logo font-display font-medium tracking-[.1em] text-sm text-fg">BCARRION</a>
+    <div class="links flex items-center gap-8">
+      <a href="/" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'home' }]}>
         <span class="lang-es">Inicio</span><span class="lang-en">Home</span>
       </a>
-      <a href="/tracklist" class:list={["navlink", { active: active === 'tracklist' }]}>Tracklist</a>
-      <a href="/album" class:list={["navlink", { active: active === 'album' }]}>
+      <a href="/tracklist" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'tracklist' }]}>Tracklist</a>
+      <a href="/album" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'album' }]}>
         <span class="lang-es">Álbum</span><span class="lang-en">Album</span>
       </a>
-      <a href="/blog" class:list={["navlink", { active: active === 'blog' }]}>Blog</a>
-      <button class="icon-btn" data-theme-toggle title="Theme">☀</button>
-      <div class="lang-switch">
-        <button class="es" data-lang-set="es">ES</button>
-        <button class="en" data-lang-set="en">EN</button>
+      <a href="/blog" class:list={["navlink text-muted text-[13px] tracking-[.03em]", { active: active === 'blog' }]}>Blog</a>
+      <button class="icon-btn bg-transparent border border-border text-fg rounded-sm w-7 h-7 text-[13px] cursor-pointer leading-none" data-theme-toggle title="Theme">☀</button>
+      <div class="lang-switch flex border border-border rounded-sm overflow-hidden">
+        <button class="es bg-transparent border-0 py-[5px] px-[10px] text-[11px] tracking-[.05em] cursor-pointer" data-lang-set="es">ES</button>
+        <button class="en bg-transparent border-0 py-[5px] px-[10px] text-[11px] tracking-[.05em] cursor-pointer" data-lang-set="en">EN</button>
       </div>
     </div>
   </nav>
 
   <slot />
 
-  <footer class="site-footer">
+  <footer class="site-footer relative z-10 py-8 px-[6vw] border-t border-border-soft flex justify-between items-center flex-wrap gap-3 text-faint text-xs">
     <div>© 2026 BCARRION</div>
-    <div class="links">
-      <a href="/tracklist">Tracklist</a>
-      <a href="/album"><span class="lang-es">Álbum</span><span class="lang-en">Album</span></a>
-      <a href="/blog">Blog</a>
+    <div class="links flex gap-6">
+      <a href="/tracklist" class="text-faint text-xs">Tracklist</a>
+      <a href="/album" class="text-faint text-xs"><span class="lang-es">Álbum</span><span class="lang-en">Album</span></a>
+      <a href="/blog" class="text-faint text-xs">Blog</a>
     </div>
   </footer>
 

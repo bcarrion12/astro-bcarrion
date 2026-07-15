@@ -3,41 +3,41 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const gallery = [1, 2, 3, 4, 5, 6];
 ---
 <BaseLayout title="Álbum — BCARRION" active="album">
-  <section style="position:relative; z-index:1; display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:center; max-width:1080px; margin:0 auto; padding:180px 6vw 120px;">
-    <div style="width:100%; aspect-ratio:1; overflow:hidden; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, var(--borderSoft), var(--borderSoft) 10px, transparent 10px, transparent 20px);">
-      <span style="font-family:monospace; font-size:12px; color:var(--faint);">foto del artista</span>
+  <section class="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-20 items-center max-w-[1080px] mx-auto pt-[180px] px-[6vw] pb-[120px]">
+    <div class="placeholder-tile w-full aspect-square overflow-hidden border border-border flex items-center justify-center">
+      <span class="font-mono text-xs text-faint">foto del artista</span>
     </div>
     <div>
-      <p style="letter-spacing:.3em; text-transform:uppercase; color:var(--muted); font-size:11px; margin:0 0 20px;">
+      <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-5">
         <span class="lang-es">Sobre el artista</span><span class="lang-en">About the artist</span>
       </p>
-      <h1 style="font-family:'Space Grotesk',sans-serif; font-weight:400; font-size:clamp(30px,4.5vw,48px); margin:0 0 24px; color:var(--fg);">BCARRION</h1>
-      <p style="color:var(--muted); font-size:15px; line-height:1.8; max-width:440px;">
+      <h1 class="font-display font-normal text-[clamp(30px,4.5vw,48px)] mb-6 text-fg">BCARRION</h1>
+      <p class="text-muted text-[15px] leading-[1.8] max-w-[440px]">
         <span class="lang-es">bcarrion explora los límites entre lo electrónico y lo orgánico. Andromeda es su álbum más ambicioso: ocho pistas que orbitan entre sintetizadores cálidos y percusión precisa, un mapa sonoro de un viaje interior contado a escala cósmica.</span>
         <span class="lang-en">bcarrion explores the line between electronic and organic. Andromeda is the most ambitious record yet: eight tracks orbiting warm synths and precise percussion, a sonic map of an inner journey told at cosmic scale.</span>
       </p>
     </div>
   </section>
 
-  <section style="position:relative; z-index:1; max-width:860px; margin:0 auto; padding:0 6vw 140px; text-align:center;">
-    <p style="letter-spacing:.3em; text-transform:uppercase; color:var(--muted); font-size:11px; margin:0 0 40px;">
+  <section class="relative z-10 max-w-[860px] mx-auto px-[6vw] pb-[140px] text-center">
+    <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-10">
       <span class="lang-es">Video destacado</span><span class="lang-en">Featured video</span>
     </p>
-    <div style="position:relative; width:100%; aspect-ratio:16/9; overflow:hidden; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, var(--borderSoft), var(--borderSoft) 10px, transparent 10px, transparent 20px);">
-      <div style="width:60px; height:60px; border-radius:50%; border:1px solid var(--fg); display:flex; align-items:center; justify-content:center;">
-        <div style="width:0; height:0; border-top:10px solid transparent; border-bottom:10px solid transparent; border-left:16px solid var(--fg); margin-left:5px;"></div>
+    <div class="placeholder-tile relative w-full aspect-video overflow-hidden border border-border flex items-center justify-center">
+      <div class="w-[60px] h-[60px] rounded-full border border-fg flex items-center justify-center">
+        <div class="w-0 h-0 border-t-[10px] border-t-transparent border-b-[10px] border-b-transparent border-l-[16px] border-l-fg ml-[5px]"></div>
       </div>
     </div>
   </section>
 
-  <section style="position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 6vw 150px;">
-    <p style="letter-spacing:.3em; text-transform:uppercase; color:var(--muted); font-size:11px; margin:0 0 40px; text-align:center;">
+  <section class="relative z-10 max-w-[1080px] mx-auto px-[6vw] pb-[150px]">
+    <p class="tracking-[.3em] uppercase text-muted text-[11px] mb-10 text-center">
       <span class="lang-es">Galería</span><span class="lang-en">Gallery</span>
     </p>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:2px;">
+    <div class="grid gap-0.5" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
       {gallery.map((n) => (
-        <div style="aspect-ratio:1; overflow:hidden; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, var(--borderSoft), var(--borderSoft) 10px, transparent 10px, transparent 20px);">
-          <span style="font-family:monospace; font-size:11px; color:var(--faint);">foto {n}</span>
+        <div class="placeholder-tile aspect-square overflow-hidden flex items-center justify-center">
+          <span class="font-mono text-[11px] text-faint">foto {n}</span>
         </div>
       ))}
     </div>
