@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const albums = (await getCollection('albums', ({ data }) => data.published)).sort(
@@ -32,9 +33,26 @@ const albums = (await getCollection('albums', ({ data }) => data.published)).sor
     {albums.map((album) => (
       <a
         href={`/discografia/${album.id}`}
-        class="group flex items-center justify-between gap-6 py-6 px-1 border-b border-border transition-colors duration-300 hover:border-fg"
+        class="group flex items-center gap-5 py-6 px-1 border-b border-border transition-colors duration-300 hover:border-fg"
       >
-        <div class="text-left">
+        <div class="w-16 h-16 shrink-0 rounded-sm overflow-hidden border border-border-soft">
+          {album.data.cover ? (
+            <Image
+              src={album.data.cover}
+              alt={album.data.title}
+              width={128}
+              height={128}
+              format="webp"
+              quality={80}
+              class="w-full h-full object-cover"
+            />
+          ) : (
+            <div class="placeholder-tile w-full h-full flex items-center justify-center">
+              <span class="font-display text-lg text-faint">{album.data.title.charAt(0)}</span>
+            </div>
+          )}
+        </div>
+        <div class="text-left flex-1 min-w-0">
           <div class="font-display text-xl text-fg transition-transform duration-300 group-hover:translate-x-1">
             {album.data.title}
             {album.data.current && (

@@ -1,7 +1,15 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import artistPhoto from '../assets/artist.png';
+
+const albums = await getCollection('albums', ({ data }) => data.published && data.current);
+const currentAlbum = albums[0];
+const trackCount = currentAlbum?.data.tracks.length ?? 0;
+const releaseShort = currentAlbum
+  ? `${String(currentAlbum.data.releaseDate.getUTCDate()).padStart(2, '0')}.${String(currentAlbum.data.releaseDate.getUTCMonth() + 1).padStart(2, '0')}`
+  : '';
 ---
 <BaseLayout title="Sobre — BCARRION" active="sobre" description="Sobre bcarrion: biografía del artista detrás de Andromeda.">
   <section class="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-20 items-center max-w-[1080px] mx-auto pt-[180px] px-[6vw] pb-[80px]">
@@ -35,7 +43,7 @@ import artistPhoto from '../assets/artist.png';
   <section class="relative z-10 max-w-[1080px] mx-auto px-[6vw] pb-[150px]">
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 text-center">
       <div class="card">
-        <div class="font-display font-bold text-[28px] text-fg mb-1">8</div>
+        <div class="font-display font-bold text-[28px] text-fg mb-1">{trackCount}</div>
         <div class="text-faint text-[11px] tracking-[.15em] uppercase">
           <span class="lang-es">Pistas en Andromeda</span><span class="lang-en">Tracks on Andromeda</span>
         </div>
@@ -47,7 +55,7 @@ import artistPhoto from '../assets/artist.png';
         </div>
       </div>
       <div class="card">
-        <div class="font-display font-bold text-[28px] text-fg mb-1">15.08</div>
+        <div class="font-display font-bold text-[28px] text-fg mb-1">{releaseShort}</div>
         <div class="text-faint text-[11px] tracking-[.15em] uppercase">
           <span class="lang-es">Fecha de Andromeda</span><span class="lang-en">Andromeda release date</span>
         </div>

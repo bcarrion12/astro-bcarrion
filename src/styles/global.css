@@ -91,6 +91,8 @@ a:hover { @apply text-accent-hover; }
 [data-lang="es"] .lang-switch button.es,
 [data-lang="en"] .lang-switch button.en { @apply bg-fg text-bg; }
 
+#nav-links.mobile-open { background: var(--bg); }
+
 [data-icon-sun], [data-icon-moon] { display: block; }
 [data-theme="dark"] [data-icon-moon] { display: none; }
 [data-theme="light"] [data-icon-sun] { display: none; }
@@ -192,6 +194,10 @@ a:hover { @apply text-accent-hover; }
   border-radius: 3px;
 }
 
+.logo {
+  font-family: 'Orbitron', sans-serif;
+}
+
 .logo-dot {
   display: inline-block;
   width: 7px;
@@ -199,4 +205,13 @@ a:hover { @apply text-accent-hover; }
   border-radius: 999px;
   background: var(--accent);
   box-shadow: 0 0 10px color-mix(in oklch, var(--accent) 70%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

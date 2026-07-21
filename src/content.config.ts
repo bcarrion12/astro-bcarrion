@@ -21,13 +21,14 @@ const blog = defineCollection({
 
 const albums = defineCollection({
   type: 'data',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     releaseDate: z.coerce.date(),
     published: z.boolean().default(true),
     current: z.boolean().default(false),
     descriptionEs: z.string(),
     descriptionEn: z.string(),
+    cover: image().optional(),
     links: z.object({
       spotify: z.string().optional()
     }).optional(),

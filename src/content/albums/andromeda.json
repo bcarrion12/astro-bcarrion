@@ -5,6 +5,7 @@
   "current": true,
   "descriptionEs": "Ocho canciones, un viaje entre galaxias.",
   "descriptionEn": "Eight songs, one journey between galaxies.",
+  "cover": "../../assets/album_cover.jpg",
   "tracks": [
     { "num": "01", "title": "Nébula", "duration": "3:24", "single": false },
     { "num": "02", "title": "Gravedad", "duration": "4:02", "single": true },

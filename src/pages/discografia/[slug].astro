@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
@@ -23,8 +24,26 @@ const releaseEn = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeri
   title={`${album.data.title} — BCARRION`}
   active="discografia"
   description={`Tracklist de ${album.data.title}: ${album.data.descriptionEs}`}
+  image={album.data.cover}
 >
   <section class="relative z-10 pt-[180px] px-[6vw] pb-10 text-center">
+    <div class="w-[180px] h-[180px] mx-auto mb-10 rounded-sm overflow-hidden border border-border-soft">
+      {album.data.cover ? (
+        <Image
+          src={album.data.cover}
+          alt={album.data.title}
+          width={360}
+          height={360}
+          format="webp"
+          quality={85}
+          class="w-full h-full object-cover"
+        />
+      ) : (
+        <div class="placeholder-tile w-full h-full flex items-center justify-center">
+          <span class="font-display text-4xl text-faint">{album.data.title.charAt(0)}</span>
+        </div>
+      )}
+    </div>
     <p class="eyebrow mb-5">BCARRION</p>
     <h1 class="font-display font-bold text-[clamp(36px,6vw,64px)] m-0 text-fg">{album.data.title}</h1>
     <p class="text-muted max-w-[440px] mx-auto mt-5 text-sm leading-[1.7]">

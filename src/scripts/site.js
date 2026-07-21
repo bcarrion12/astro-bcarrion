@@ -35,13 +35,15 @@ export function runParticleField(canvas, getTheme) {
     stars.push(s);
   }
 
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   let mx = 0, my = 0, tmx = 0, tmy = 0;
   function onMove(e) {
     const r = canvas.getBoundingClientRect();
     tmx = ((e.clientX - r.left) / r.width - 0.5) * 2;
     tmy = ((e.clientY - r.top) / r.height - 0.5) * 2;
   }
-  window.addEventListener('mousemove', onMove);
+  if (!reducedMotion) window.addEventListener('mousemove', onMove);
 
   let last = performance.now();
   function frame(now) {
@@ -80,6 +82,20 @@ export function runParticleField(canvas, getTheme) {
       ctx.fill();
     }
   }
+  if (reducedMotion) {
+    frame(performance.now());
+    const redraw = () => frame(performance.now());
+    window.addEventListener('resize', redraw);
+    const themeBtn = document.querySelector('[data-theme-toggle]');
+    themeBtn?.addEventListener('click', () => setTimeout(redraw, 0));
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', redraw);
+      themeBtn?.removeEventListener('click', redraw);
+    };
+  }
+
   const interval = setInterval(() => frame(performance.now()), 16);
   return () => { clearInterval(interval); ro.disconnect(); window.removeEventListener('resize', resize); window.removeEventListener('mousemove', onMove); };
 }
