@@ -11,4 +11,12 @@ en:
   excerpt: "Notes on producing the track that opened the project."
 ---
 
-Contenido completo próximamente.
+"Gravedad" es el primer corte que compartimos de Andromeda, y funciona como puerta de entrada al resto del disco: un groove pesado, sintetizadores graves y una progresión que recién se resuelve en el estribillo.
+
+## Cómo nació
+
+La idea original salió de una sesión de improvisación en el estudio, buscando un contraste entre lo orgánico y lo electrónico — algo que terminó definiendo el sonido de todo el álbum. Fue el primer tema que cerramos de principio a fin, y el que nos dio la certeza de que el proyecto tenía un rumbo claro.
+
+## Por qué es el primer sencillo
+
+Porque resume mejor que cualquier otro track el equilibrio que buscamos en Andromeda: calidez y precisión al mismo tiempo. Si te gustó "Gravedad", el resto del álbum profundiza en esa misma dirección.

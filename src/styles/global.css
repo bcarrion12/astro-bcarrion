@@ -152,6 +152,46 @@ a:hover { @apply text-accent-hover; }
   background: color-mix(in oklch, var(--accent) 12%, transparent);
 }
 
+.prose-post > :first-child { margin-top: 0; }
+.prose-post p { margin: 0 0 1.4em; }
+.prose-post h2 {
+  @apply font-display font-semibold text-fg;
+  font-size: 22px;
+  margin: 2.2em 0 .8em;
+  letter-spacing: -.01em;
+}
+.prose-post h3 {
+  @apply font-display font-semibold text-fg;
+  font-size: 18px;
+  margin: 1.8em 0 .7em;
+}
+.prose-post strong { @apply text-fg font-medium; }
+.prose-post a { @apply underline underline-offset-4; }
+.prose-post ul, .prose-post ol { margin: 0 0 1.4em; padding-left: 1.4em; }
+.prose-post li { margin: 0 0 .5em; }
+.prose-post ul { list-style: disc; }
+.prose-post ol { list-style: decimal; }
+.prose-post blockquote {
+  margin: 1.8em 0;
+  padding: .2em 0 .2em 1.2em;
+  border-left: 2px solid var(--accent);
+  font-style: italic;
+  color: var(--fg);
+}
+.prose-post img {
+  width: 100%;
+  border-radius: 2px;
+  margin: 2em 0;
+  border: 1px solid var(--border);
+}
+.prose-post code {
+  font-family: ui-monospace, monospace;
+  font-size: .9em;
+  background: var(--surface);
+  padding: .15em .4em;
+  border-radius: 3px;
+}
+
 .logo-dot {
   display: inline-block;
   width: 7px;

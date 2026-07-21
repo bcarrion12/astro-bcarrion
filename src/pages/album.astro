@@ -1,6 +1,18 @@
 ---
+import { Image, getImage } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
-const gallery = [1, 2, 3, 4, 5, 6];
+import f1 from '../assets/artist_f1.jpg';
+import f2 from '../assets/artist_f2.jpg';
+import f3 from '../assets/artist_f3.jpg';
+import f4 from '../assets/artist_f4.jpg';
+
+const gallery = [f1, f2, f3, f4, null, null];
+
+const galleryFull = await Promise.all(
+  gallery.map((photo) =>
+    photo ? getImage({ src: photo, format: 'webp', width: 1600, quality: 82 }) : null
+  )
+);
 ---
 <BaseLayout title="Álbum — BCARRION" active="album" description="El álbum Andromeda de bcarrion: video destacado y galería.">
   <section class="relative z-10 max-w-[860px] mx-auto px-[6vw] pt-[180px] pb-[140px] text-center">
@@ -25,11 +37,64 @@ const gallery = [1, 2, 3, 4, 5, 6];
       <span class="lang-es">Galería</span><span class="lang-en">Gallery</span>
     </p>
     <div class="grid gap-0.5" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
-      {gallery.map((n) => (
-        <div class="placeholder-tile aspect-square overflow-hidden flex items-center justify-center transition-transform duration-300 hover:scale-[1.03] cursor-pointer">
-          <span class="font-mono text-[11px] text-faint">foto {n}</span>
-        </div>
-      ))}
+      {gallery.map((photo, i) =>
+        photo ? (
+          <button
+            type="button"
+            class="group relative aspect-square overflow-hidden border-0 p-0 block cursor-zoom-in"
+            data-lightbox-trigger
+            data-full={galleryFull[i]?.src}
+            aria-label={`Ampliar foto ${i + 1}`}
+          >
+            <Image
+              src={photo}
+              alt={`Andromeda — foto ${i + 1}`}
+              widths={[300, 500, 700]}
+              sizes="(min-width: 768px) 33vw, 50vw"
+              format="webp"
+              quality={75}
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.05]"
+            />
+          </button>
+        ) : (
+          <div class="placeholder-tile aspect-square overflow-hidden flex items-center justify-center">
+            <span class="font-mono text-[11px] text-faint">próximamente</span>
+          </div>
+        )
+      )}
     </div>
   </section>
+
+  <div
+    id="lightbox"
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 backdrop-blur-sm p-6"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Vista ampliada de la foto"
+  >
+    <button
+      type="button"
+      data-lightbox-close
+      class="absolute top-5 right-5 md:top-8 md:right-8 flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white/80 cursor-pointer transition-colors duration-300 hover:text-white hover:border-white/50"
+      aria-label="Cerrar"
+    >&#10005;</button>
+    <button
+      type="button"
+      data-lightbox-prev
+      class="absolute left-3 md:left-8 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white/80 cursor-pointer transition-colors duration-300 hover:text-white hover:border-white/50"
+      aria-label="Foto anterior"
+    >&#8592;</button>
+    <img data-lightbox-img src="" alt="" class="max-w-full max-h-full object-contain rounded-sm" />
+    <button
+      type="button"
+      data-lightbox-next
+      class="absolute right-3 md:right-8 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full border border-white/20 text-white/80 cursor-pointer transition-colors duration-300 hover:text-white hover:border-white/50"
+      aria-label="Foto siguiente"
+    >&#8594;</button>
+  </div>
+
+  <script>
+    import { initGalleryLightbox } from '../scripts/site.js';
+    document.addEventListener('astro:page-load', initGalleryLightbox);
+  </script>
 </BaseLayout>

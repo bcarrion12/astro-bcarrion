@@ -153,6 +153,57 @@ export function wireGlobalControls() {
   });
 }
 
+export function initGalleryLightbox() {
+  const overlay = document.getElementById('lightbox');
+  if (!overlay || overlay.dataset.inited) return;
+  overlay.dataset.inited = 'true';
+
+  const triggers = Array.from(document.querySelectorAll('[data-lightbox-trigger]'));
+  const imgEl = overlay.querySelector('[data-lightbox-img]');
+  const closeBtn = overlay.querySelector('[data-lightbox-close]');
+  const prevBtn = overlay.querySelector('[data-lightbox-prev]');
+  const nextBtn = overlay.querySelector('[data-lightbox-next]');
+  if (triggers.length === 0 || !imgEl) return;
+
+  let current = -1;
+  let lastFocused = null;
+
+  function show(index) {
+    current = (index + triggers.length) % triggers.length;
+    const t = triggers[current];
+    imgEl.src = t.dataset.full || '';
+    imgEl.alt = t.getAttribute('aria-label') || '';
+  }
+  function open(index) {
+    lastFocused = document.activeElement;
+    show(index);
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    closeBtn?.focus();
+  }
+  function close() {
+    overlay.classList.add('hidden');
+    overlay.classList.remove('flex');
+    document.body.style.overflow = '';
+    imgEl.src = '';
+    current = -1;
+    if (lastFocused instanceof HTMLElement) lastFocused.focus();
+  }
+
+  triggers.forEach((t, i) => t.addEventListener('click', () => open(i)));
+  closeBtn?.addEventListener('click', close);
+  prevBtn?.addEventListener('click', () => show(current - 1));
+  nextBtn?.addEventListener('click', () => show(current + 1));
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', (e) => {
+    if (overlay.classList.contains('hidden')) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(current - 1);
+    else if (e.key === 'ArrowRight') show(current + 1);
+  });
+}
+
 export function startCountdown(targetISO, ids) {
   const target = new Date(targetISO).getTime();
   function tick() {

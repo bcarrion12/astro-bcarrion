@@ -1,0 +1,54 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<BaseLayout
+  title={`${post.data.es.title} — BCARRION`}
+  active="blog"
+  description={post.data.es.excerpt}
+>
+  <article class="relative z-10 max-w-[720px] mx-auto pt-[160px] px-[6vw] pb-[150px]">
+    <a href="/blog" class="inline-flex items-center gap-2 text-faint text-[13px] tracking-[.03em] transition-colors duration-300 hover:text-fg mb-10">
+      <span class="lang-es">&#8592; Volver al blog</span><span class="lang-en">&#8592; Back to blog</span>
+    </a>
+
+    <p class="eyebrow mb-5">
+      <span class="lang-es">{post.data.es.date}</span><span class="lang-en">{post.data.en.date}</span>
+    </p>
+    <h1 class="font-display font-bold text-[clamp(28px,5vw,44px)] leading-tight mb-10 text-fg">
+      <span class="lang-es">{post.data.es.title}</span><span class="lang-en">{post.data.en.title}</span>
+    </h1>
+
+    {post.data.image && (
+      <div class="w-full aspect-video overflow-hidden rounded-sm border border-border mb-12">
+        <img
+          src={post.data.image}
+          alt={post.data.es.title}
+          loading="eager"
+          class="w-full h-full object-cover"
+        />
+      </div>
+    )}
+
+    <div class="prose-post text-muted text-[15px] leading-[1.8]">
+      <Content />
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-border-soft">
+      <a href="/blog" class="cta-outline">
+        <span class="lang-es">&#8592; Ver todas las entradas</span><span class="lang-en">&#8592; View all posts</span>
+      </a>
+    </div>
+  </article>
+</BaseLayout>

@@ -11,4 +11,12 @@ en:
   excerpt: "Everything you need to know about the August 15 release."
 ---
 
-Contenido completo próximamente.
+Andromeda sale el **15 de agosto de 2026**. Desde ahora podés reservarlo en Spotify, Apple Music y YouTube Music — los links están en la sección de preorder de la home apenas se habiliten en cada plataforma.
+
+## Formato
+
+Por el momento el lanzamiento es digital, en streaming. Si se suma una edición física (vinilo o CD), lo vamos a anunciar acá antes de la fecha de salida.
+
+## El día del lanzamiento
+
+Las ocho pistas del álbum se publican todas juntas, sin adelantos exclusivos después del 15/08. "Gravedad", el primer sencillo, ya está afuera — pero va a sonar distinto escuchado dentro del álbum completo.

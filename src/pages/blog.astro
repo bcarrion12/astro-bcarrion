@@ -18,7 +18,11 @@ const posts = (await getCollection('blog')).sort(
 
   <section class="relative z-10 max-w-[760px] mx-auto pt-10 px-[6vw] pb-[150px]">
     {posts.map((post) => (
-      <div class="group grid grid-cols-[110px_1fr] gap-7 py-[30px] px-1 border-b border-border text-left transition-colors duration-300 hover:border-fg">
+      <a
+        id={post.id}
+        href={`/blog/${post.id}`}
+        class="group grid grid-cols-[110px_1fr] gap-7 py-[30px] px-1 border-b border-border text-left transition-colors duration-300 hover:border-fg scroll-mt-28"
+      >
         <div class="font-mono text-xs text-faint tracking-[.03em] pt-[3px]">
           <span class="lang-es">{post.data.es.date}</span><span class="lang-en">{post.data.en.date}</span>
         </div>
@@ -29,8 +33,13 @@ const posts = (await getCollection('blog')).sort(
           <div class="text-muted text-sm leading-[1.7] max-w-[520px]">
             <span class="lang-es">{post.data.es.excerpt}</span><span class="lang-en">{post.data.en.excerpt}</span>
           </div>
+          <div class="mt-3 text-[13px] text-faint transition-all duration-300 group-hover:text-accent">
+            <span class="inline-block transition-transform duration-300 group-hover:translate-x-1">
+              <span class="lang-es">Leer más</span><span class="lang-en">Read more</span> &#8594;
+            </span>
+          </div>
         </div>
-      </div>
+      </a>
     ))}
   </section>
 </BaseLayout>

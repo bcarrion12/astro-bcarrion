@@ -1,7 +1,7 @@
 backend:
   name: github
-  repo: TU_USUARIO/TU_REPO # reemplazar por el repo real en GitHub (usuario/repo)
-  branch: main
+  repo: bcarrion12/astro-bcarrion
+  branch: master
   base_url: https://api.netlify.com # proxy de OAuth de Netlify; funciona aunque el sitio no esté hosteado ahí
 
 # Permite probar el panel en local con `npx decap-server` corriendo en paralelo
@@ -63,6 +63,7 @@ collections:
     fields:
       - { label: "Título (para el nombre del archivo)", name: "title", widget: "string" }
       - { label: "Fecha de publicación (orden)", name: "pubDate", widget: "date", format: "YYYY-MM-DD" }
+      - { label: "Imagen destacada (opcional)", name: "image", widget: "image", required: false, hint: "Se muestra arriba del post, en la página de detalle." }
       - label: "Español"
         name: "es"
         widget: "object"

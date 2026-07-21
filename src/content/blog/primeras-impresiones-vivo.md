@@ -11,4 +11,12 @@ en:
   excerpt: "Early previews played at acoustic sessions ahead of release."
 ---
 
-Contenido completo próximamente.
+Antes del lanzamiento tocamos algunos adelantos de Andromeda en formato acústico, para probar cómo se sostienen los temas sin toda la producción electrónica encima.
+
+## Lo que aprendimos
+
+La respuesta fue mejor de lo esperado: canciones como "Gravedad" funcionan incluso despojadas de casi todo el groove original. Eso nos dio bastante confianza de cara al lanzamiento completo del álbum el 15 de agosto — si el esqueleto de la canción aguanta solo con voz e instrumento, el resto es todo a favor.
+
+## Qué sigue
+
+Estamos evaluando armar algo más formal en vivo alrededor de la fecha de lanzamiento. En cuanto haya algo confirmado, lo vas a ver primero acá.

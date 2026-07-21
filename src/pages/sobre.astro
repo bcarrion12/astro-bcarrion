@@ -1,10 +1,20 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import artistPhoto from '../assets/artist.png';
 ---
 <BaseLayout title="Sobre — BCARRION" active="sobre" description="Sobre bcarrion: biografía del artista detrás de Andromeda.">
   <section class="relative z-10 grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-20 items-center max-w-[1080px] mx-auto pt-[180px] px-[6vw] pb-[80px]">
-    <div class="placeholder-tile w-full aspect-square overflow-hidden border border-border flex items-center justify-center">
-      <span class="font-mono text-xs text-faint">foto del artista</span>
+    <div class="w-full aspect-square overflow-hidden rounded-sm border border-border">
+      <Image
+        src={artistPhoto}
+        alt="bcarrion, el artista detrás de Andromeda"
+        widths={[400, 700, 1000]}
+        sizes="(min-width: 768px) 45vw, 90vw"
+        format="webp"
+        quality={80}
+        class="w-full h-full object-cover"
+      />
     </div>
     <div>
       <p class="eyebrow mb-5">
