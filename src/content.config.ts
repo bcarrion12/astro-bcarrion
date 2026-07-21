@@ -28,11 +28,14 @@ const albums = defineCollection({
     current: z.boolean().default(false),
     descriptionEs: z.string(),
     descriptionEn: z.string(),
+    links: z.object({
+      spotify: z.string().optional()
+    }).optional(),
     tracks: z.array(
       z.object({
         num: z.string(),
         title: z.string(),
-        duration: z.string(),
+        duration: z.string().optional(),
         single: z.boolean().default(false)
       })
     )

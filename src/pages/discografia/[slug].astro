@@ -45,11 +45,16 @@ const releaseEn = new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeri
             </div>
           )}
         </div>
-        <div class="font-display text-faint text-[13px]">{track.duration}</div>
+        {track.duration && <div class="font-display text-faint text-[13px]">{track.duration}</div>}
       </div>
     ))}
 
-    <div class="text-center mt-[72px]">
+    <div class="text-center mt-[72px] flex flex-col items-center gap-4">
+      {album.data.links?.spotify && (
+        <a href={album.data.links.spotify} target="_blank" rel="noopener noreferrer" class="cta-solid">
+          <span class="lang-es">Escuchar en Spotify</span><span class="lang-en">Listen on Spotify</span>
+        </a>
+      )}
       <a href="/discografia" class="cta-outline">
         <span class="lang-es">← Ver discografía completa</span><span class="lang-en">← Back to discography</span>
       </a>

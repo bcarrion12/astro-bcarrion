@@ -1,0 +1,20 @@
+{
+  "title": "Duality",
+  "releaseDate": "2025-03-01",
+  "published": true,
+  "current": false,
+  "descriptionEs": "Siete temas sobre las dos caras de una misma búsqueda.",
+  "descriptionEn": "Seven tracks about the two sides of the same search.",
+  "links": {
+    "spotify": "#"
+  },
+  "tracks": [
+    { "num": "01", "title": "Take Your Time", "single": false },
+    { "num": "02", "title": "Ascend", "single": false },
+    { "num": "03", "title": "Presence", "single": false },
+    { "num": "04", "title": "Alter Ego", "single": false },
+    { "num": "05", "title": "Tacit", "single": false },
+    { "num": "06", "title": "Effort", "single": false },
+    { "num": "07", "title": "Condescendence", "single": false }
+  ]
+}
